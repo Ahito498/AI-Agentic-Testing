@@ -15,7 +15,7 @@ Paired comparison -- mutation_score_pct
   Wilcoxon signed-rank
     non-zero differences : 11 of 27
     W                    : 18.0
-    p (two-sided)        : 0.1973
+    p (two-sided)        : 0.1823
     NOT significant -- the systems are indistinguishable on this data
 
   16 of 27 functions tie exactly. A test cannot find a

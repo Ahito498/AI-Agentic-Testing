@@ -291,7 +291,7 @@ tied              16 functions
 Wilcoxon signed-rank (two-sided)
   non-zero differences  11 of 27
   W                     18.0
-  p                     0.1973   -- not significant
+  p                     0.1823   -- not significant
 ```
 
 ### Reading this
@@ -306,12 +306,12 @@ What this establishes is the floor the proposed variants have to clear:
 
 ```
 single-shot generation      94.1%
-+ 3-panelist consensus      94.8%   (+0.7, 5x the cost, p = 0.20)
++ 3-panelist consensus      94.8%   (+0.7, 5x the cost, p = 0.18)
 + mutation-guided loop         ?    <- Variants 1 and 2
 ```
 
 **Report the tie rate alongside the p-value.** A significance test cannot find
-a difference that mostly is not there, and "p = 0.20" alone invites the reading
+a difference that mostly is not there, and "p = 0.18" alone invites the reading
 that the study was underpowered rather than that the systems genuinely match.
 
 ### Caveats
