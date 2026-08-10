@@ -1,0 +1,9 @@
+{
+  "function_id": "function_30",
+  "system_variant": "Baseline_A",
+  "iteration_count": 1,
+  "total_tokens_used": 1410,
+  "mutation_score_pct": 0.0,
+  "estimated_cost_usd": 0.003035,
+  "num_llm_calls": 1
+}

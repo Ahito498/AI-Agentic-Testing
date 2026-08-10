@@ -24,10 +24,20 @@ GENERATED_TESTS_DIR = REPO_ROOT / "generated_tests"
 PROVIDER = "gemini"
 API_KEY_ENV = "GEMINI_API_KEY"
 
-# The project brief names "Gemini 3 Flash", but that ID has since been
-# superseded. gemini-3.6-flash is the current GA Flash model.
-# https://ai.google.dev/gemini-api/docs/latest-model
-MODEL_ID = os.getenv("MODEL_ID", "gemini-3.6-flash")
+# The brief names "Gemini 3 Flash", which has since been superseded.
+#
+# All four systems run on gemini-3.5-flash-lite. Mixing models across systems
+# would compare models rather than systems, so this is fixed for the whole
+# experiment and must not be changed once results exist.
+#
+# Chosen over the larger gemini-3.6-flash for quota, not cost: the free tier
+# allows 500 requests/day here against 20 for 3.6-flash, and this project needs
+# ~540 for Baseline A + B alone. Quality was validated before committing --
+# on function_03 both models scored 100% mutation, and on function_21
+# (binary_search, 19 mutants) flash-lite scored 89.5% with all tests passing,
+# leaving two mutants alive. That residue matters: a model that kills
+# everything leaves the refinement-loop RQs nothing to improve on.
+MODEL_ID = os.getenv("MODEL_ID", "gemini-3.5-flash-lite")
 
 # Section 3.4 of the brief requires 3 repeats per function and reports
 # mean +/- standard deviation, which only carries information if generation
