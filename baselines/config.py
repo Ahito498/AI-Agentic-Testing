@@ -55,6 +55,12 @@ MAX_OUTPUT_TOKENS = int(os.getenv("MAX_OUTPUT_TOKENS", "8192"))
 MAX_RETRIES = int(os.getenv("MAX_RETRIES", "3"))
 MAX_RETRY_DELAY_SECONDS = float(os.getenv("MAX_RETRY_DELAY_SECONDS", "90"))
 
+# Per-request timeout in milliseconds. Without one, a hung connection blocks
+# indefinitely -- a sweep was observed sitting for 68 minutes on 5 seconds of
+# CPU, waiting on a socket that never returned. Generation takes seconds, so
+# two minutes is generous while still failing fast enough to retry.
+REQUEST_TIMEOUT_MS = int(os.getenv("REQUEST_TIMEOUT_MS", "120000"))
+
 # --- Cost ------------------------------------------------------------------
 # USD per 1M tokens. These are the figures quoted in the project brief for
 # "Gemini 3 Flash".

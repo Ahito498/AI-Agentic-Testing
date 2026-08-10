@@ -265,3 +265,57 @@ Also outstanding:
 1. Baseline B live on `function_03` — generation quality + panel-disagreement rate.
 2. Both systems on 5–10 functions, scored — the first honest A vs B comparison.
 3. Full scale: 30 functions × 3 repeats, once billing is confirmed.
+
+---
+
+## 9. First results — Baseline A vs Baseline B
+
+Generated with `gemini-3.5-flash-lite`, doctests stripped, 3 repeats per
+function. Scored with `baselines/score.py`, compared with
+`baselines/compare.py`.
+
+| | runs | mutation score | line coverage |
+|---|---|---|---|
+| Baseline A | 90/90 | 94.1% ± 7.1 | 73.7% |
+| Baseline B | 78/90 | 94.8% ± 5.9 | 70.9% |
+
+Paired on the 27 functions present for both systems, averaging the 3 repeats
+per function first:
+
+```
+difference        +0.7 points
+Baseline B better  8 functions
+Baseline A better  3 functions
+tied              16 functions
+
+Wilcoxon signed-rank (two-sided)
+  non-zero differences  11 of 27
+  W                     18.0
+  p                     0.1973   -- not significant
+```
+
+### Reading this
+
+**Baseline B spends five times the calls for +0.7 points, and ties outright on
+16 of 27 functions.** Consensus alone buys almost nothing here.
+
+That is a result, not a failure. RQ1 asks whether *mutation-guided iteration*
+beats consensus alone; a Baseline B that had leapt ahead would have undercut
+the premise of the refinement loop before Member 4 ran a single experiment.
+What this establishes is the floor the proposed variants have to clear:
+
+```
+single-shot generation      94.1%
++ 3-panelist consensus      94.8%   (+0.7, 5x the cost, p = 0.20)
++ mutation-guided loop         ?    <- Variants 1 and 2
+```
+
+**Report the tie rate alongside the p-value.** A significance test cannot find
+a difference that mostly is not there, and "p = 0.20" alone invites the reading
+that the study was underpowered rather than that the systems genuinely match.
+
+### Caveats
+
+- Baseline B is 78/90; the remaining 12 runs were blocked by the daily free-tier quota and land on the next reset. The paired comparison already excludes the 3 functions B has not reached, so those runs will change the numbers only slightly.
+- `function_18` is included in the means but cannot be imported at all (see the integration note), so it scores 0 for every system. It depresses both equally and should be excluded once Member 1 rules on it.
+- These figures come from `score.py`, Member 3's local harness. The paper's numbers must come from Member 2's shared pipeline so all four systems are scored identically.

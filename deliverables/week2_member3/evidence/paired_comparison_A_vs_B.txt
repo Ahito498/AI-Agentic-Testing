@@ -1,0 +1,23 @@
+======================================================================
+Paired comparison -- mutation_score_pct
+======================================================================
+  functions compared : 27
+  excluded           : 3 only in Baseline_A, 0 only in Baseline_B
+
+  Baseline_A                   94.1% ± 7.1
+  Baseline_B                   94.8% ± 5.9
+  difference                   +0.7 points
+
+  Baseline_B better : 8
+  Baseline_A better : 3
+  tied            : 16
+
+  Wilcoxon signed-rank
+    non-zero differences : 11 of 27
+    W                    : 18.0
+    p (two-sided)        : 0.1973
+    NOT significant -- the systems are indistinguishable on this data
+
+  16 of 27 functions tie exactly. A test cannot find a
+  difference that mostly is not there -- report the tie rate alongside
+  the p-value rather than the p-value alone.
