@@ -262,6 +262,13 @@ def _transient_kind(error_message: str) -> str | None:
     waiting, and losing an hour of work to a few seconds of bad DNS is not.
     """
     if "429" in error_message or "RESOURCE_EXHAUSTED" in error_message:
+        # A per-day quota does not come back by waiting. The server still sends
+        # a retryDelay, so a naive retry sleeps the full budget on every call
+        # of a sweep that cannot succeed today -- 12 runs x 5 calls x 3 sleeps
+        # is over an hour of doing nothing. Fail fast and let the resume pick
+        # it up after the reset.
+        if "PerDay" in error_message or "per day" in error_message.lower():
+            return None
         return "rate_limit"
     lowered = error_message.lower()
     network_markers = (

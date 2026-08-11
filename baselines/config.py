@@ -62,13 +62,14 @@ MAX_RETRY_DELAY_SECONDS = float(os.getenv("MAX_RETRY_DELAY_SECONDS", "90"))
 REQUEST_TIMEOUT_MS = int(os.getenv("REQUEST_TIMEOUT_MS", "120000"))
 
 # --- Cost ------------------------------------------------------------------
-# USD per 1M tokens. These are the figures quoted in the project brief for
-# "Gemini 3 Flash".
-# TODO(team): re-verify against current pricing for MODEL_ID before any cost
-# number goes into the paper. On the free tier real spend is $0, so treat
-# estimated_cost_usd as a list-price equivalent, not an invoice.
-PRICE_PER_1M_INPUT_USD = float(os.getenv("PRICE_IN", "0.50"))
-PRICE_PER_1M_OUTPUT_USD = float(os.getenv("PRICE_OUT", "3.00"))
+# USD per 1M tokens, paid-tier list price for MODEL_ID (gemini-3.5-flash-lite):
+# https://ai.google.dev/gemini-api/docs/pricing
+#
+# The brief quotes $0.50/$3.00, which is standard Flash, not Flash-Lite -- using
+# it overstated cost by roughly 25%. Change these together with MODEL_ID;
+# reasoning tokens bill at the output rate and are counted in UsageTracker.
+PRICE_PER_1M_INPUT_USD = float(os.getenv("PRICE_IN", "0.30"))
+PRICE_PER_1M_OUTPUT_USD = float(os.getenv("PRICE_OUT", "2.50"))
 
 # --- Experimental policy ---------------------------------------------------
 # DECIDED -- Prof. Doaa, Week 3: doctests are stripped from every prompt.
